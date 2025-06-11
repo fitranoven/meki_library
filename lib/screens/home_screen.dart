@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           child: Row(
             children: [
               const Text(
-                '📚 Library App',
+                '📚 Burning Hall',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
