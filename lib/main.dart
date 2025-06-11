@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const HomeScreen(),
         '/login': (context) => const LoginScreen(),
         '/home': (context) => const HomeScreen(),
-        '/loans': (context) => const LoansListScreen(),
+        '/loans': (context) => const LoanListScreen(),
         '/notifications': (context) => const NotificationScreen(),
         '/settings': (context) => const SettingsScreen(),
       },

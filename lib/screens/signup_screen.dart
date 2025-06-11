@@ -47,7 +47,6 @@ class _SignUpScreenState extends State<SignUpScreen> with SingleTickerProviderSt
     return Scaffold(
       body: Stack(
         children: [
-          // Background gradient
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -57,7 +56,6 @@ class _SignUpScreenState extends State<SignUpScreen> with SingleTickerProviderSt
               ),
             ),
           ),
-          // Animated icon & title
           Positioned(
             top: isSmall ? 40 : 80,
             left: 0,
@@ -110,7 +108,6 @@ class _SignUpScreenState extends State<SignUpScreen> with SingleTickerProviderSt
               ],
             ),
           ),
-          // Glassmorphism sign-up card
           Center(
             child: SingleChildScrollView(
               child: Padding(
@@ -254,7 +251,6 @@ class _SignUpScreenState extends State<SignUpScreen> with SingleTickerProviderSt
                                   style: TextStyle(
                                     color: Colors.white.withOpacity(0.9),
                                     fontSize: isSmall ? 12 : 15,
-                                    decoration: TextDecoration.underline,
                                   ),
                                 ),
                               ),

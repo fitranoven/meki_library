@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final List<Widget> _screens = [
     const ModernHomeContent(),
     const BookListScreen(),
-    const loan.LoanListScreen(), 
+    const LoanListScreen(),
     const ret.ReturnScreen(),
     const ProfileScreen(),
   ];
@@ -48,7 +48,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   void toggleTheme() {
     setState(() {
-      currentTheme = currentTheme == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+      currentTheme =
+          currentTheme == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
     });
   }
 
@@ -73,7 +74,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text("Close", style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+            child: Text("Close",
+                style: TextStyle(color: Theme.of(context).colorScheme.primary)),
           ),
         ],
       ),
@@ -137,24 +139,22 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   if (value == 'logout') logout();
                   if (value == 'contact') contactAdmin();
                 },
-                itemBuilder: (BuildContext context) => [
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                   _buildPopupMenuItem(
                     context,
                     value: 'theme',
-                    icon: currentTheme == ThemeMode.light ? Icons.nightlight_round : Icons.wb_sunny,
-                    text: currentTheme == ThemeMode.light ? 'Dark Mode' : 'Light Mode',
+                    icon: currentTheme == ThemeMode.light
+                        ? Icons.nightlight_round
+                        : Icons.wb_sunny,
+                    text: currentTheme == ThemeMode.light
+                        ? 'Dark Mode'
+                        : 'Light Mode',
                   ),
                   _buildPopupMenuItem(
                     context,
                     value: 'contact',
                     icon: Icons.person,
                     text: 'Contact Admin',
-                  ),
-                  _buildPopupMenuItem(
-                    context,
-                    value: 'logout',
-                    icon: Icons.logout,
-                    text: 'Logout',
                   ),
                 ],
               ),
@@ -166,11 +166,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   PopupMenuItem<String> _buildPopupMenuItem(
-      BuildContext context, {
-        required String value,
-        required IconData icon,
-        required String text,
-      }) {
+    BuildContext context, {
+    required String value,
+    required IconData icon,
+    required String text,
+  }) {
     return PopupMenuItem<String>(
       value: value,
       child: MouseRegion(
@@ -253,7 +253,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface.withOpacity(0.85),
+                    color:
+                        Theme.of(context).colorScheme.surface.withOpacity(0.85),
                     borderRadius: BorderRadius.circular(24),
                     boxShadow: [
                       BoxShadow(
@@ -277,13 +278,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     selectedFontSize: 15,
                     unselectedFontSize: 12,
                     selectedItemColor: Theme.of(context).colorScheme.primary,
-                    unselectedItemColor: Theme.of(context).unselectedWidgetColor,
+                    unselectedItemColor:
+                        Theme.of(context).unselectedWidgetColor,
                     showUnselectedLabels: true,
                     items: [
                       _buildAnimatedNavBarItem(Icons.home, 'Home', 0),
                       _buildAnimatedNavBarItem(Icons.menu_book, 'Books', 1),
                       _buildAnimatedNavBarItem(Icons.book_online, 'Loans', 2),
-                      _buildAnimatedNavBarItem(Icons.assignment_return, 'Returns', 3),
+                      _buildAnimatedNavBarItem(
+                          Icons.assignment_return, 'Returns', 3),
                       _buildAnimatedNavBarItem(Icons.person, 'Profile', 4),
                     ],
                   ),
@@ -296,7 +299,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  BottomNavigationBarItem _buildAnimatedNavBarItem(IconData icon, String label, int index) {
+  BottomNavigationBarItem _buildAnimatedNavBarItem(
+      IconData icon, String label, int index) {
     final isSelected = _currentIndex == index;
     return BottomNavigationBarItem(
       icon: AnimatedScale(
@@ -306,6 +310,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         child: Icon(icon),
       ),
       label: label,
+    );
+  }
+}
+
+class LoanListScreen extends StatelessWidget {
+  const LoanListScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(child: Text('Loan List Screen')),
     );
   }
 }

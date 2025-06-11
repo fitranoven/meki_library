@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../settings/setting_screen.dart';
-import '../settings/notification_screen.dart';
+import '../screens/login_screen.dart'; // Pastikan ini ada
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -24,8 +24,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       userName = prefs.getString('name') ?? 'Tidak diketahui';
-      photoUrl = prefs.getString('avatar'); // pastikan disimpan saat login
+      photoUrl = prefs.getString('avatar');
     });
+  }
+
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+    await prefs.remove('user');
+    await prefs.remove('name');
+    await prefs.remove('avatar');
+
+    if (!mounted) return;
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
+      (route) => false,
+    );
   }
 
   Widget buildProfileOption({
@@ -44,6 +58,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
         subtitle: Text(subtitle),
         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
         onTap: onTap,
+      ),
+    );
+  }
+
+  Widget buildLogoutOption() {
+    return Card(
+      elevation: 2,
+      margin: const EdgeInsets.only(top: 32),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: ListTile(
+        leading: const Icon(Icons.logout, color: Colors.red),
+        title: const Text('Logout', style: TextStyle(fontWeight: FontWeight.bold)),
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Konfirmasi'),
+              content: const Text('Apakah Anda yakin ingin logout?'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Batal'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context); // tutup dialog
+                    logout();
+                  },
+                  child: const Text('Logout', style: TextStyle(color: Colors.red)),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -82,16 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               MaterialPageRoute(builder: (context) => const SettingsScreen()),
             ),
           ),
-          buildProfileOption(
-            icon: Icons.notifications,
-            title: 'Notifikasi',
-            subtitle: 'Preferensi notifikasi',
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const NotificationScreen()),
-            ),
-    
-          ),
+          buildLogoutOption(),
         ],
       ),
     );
